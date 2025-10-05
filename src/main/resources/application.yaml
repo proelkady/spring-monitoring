@@ -1,0 +1,24 @@
+#spring.application.name=grafana-prometheus
+#server.port=8081
+spring:
+  application:
+    name: grafana-prometheus
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,metrics
+  endpoint:
+    prometheus:
+      access: unrestricted
+    health:
+      access: read_only
+    metrics:
+      access: unrestricted
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+server:
+  port: 8081

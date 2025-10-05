@@ -1,0 +1,38 @@
+receivers:
+  otlp:
+    protocols:
+      grpc: {}
+      # http: {}   # optional
+
+processors:
+  batch: {}
+
+exporters:
+  # Send traces to Jaeger via OTLP gRPC
+  otlp:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+
+  # Expose metrics for Prometheus to scrape
+  prometheus:
+    endpoint: 0.0.0.0:9464
+
+  # (optional) see raw output in collector logs for debugging
+  # debug: {}
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]          # <— note: 'otlp', not 'jaeger'
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [prometheus]
+    # If your app exports logs and you want to silence the error without a logs backend:
+    # logs:
+    #   receivers: [otlp]
+    #   processors: [batch]
+    #   exporters: [debug]       # or omit logs entirely and disable logs export in the agent
