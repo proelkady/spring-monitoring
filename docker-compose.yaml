@@ -47,6 +47,22 @@ services:
     container_name: jaeger
     networks:
       - monitoring
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-monitoring
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: service-a
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - monitoring
 networks:
   monitoring:
     driver: bridge
+
+volumes:
+  mongodb-data:
