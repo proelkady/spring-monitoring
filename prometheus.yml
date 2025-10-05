@@ -6,6 +6,8 @@ scrape_configs:
   - job_name: "otel-collector"
     static_configs:
       - targets: ["otel-collector:9464"]
+        labels:
+          application: 'otel'
 #  - job_name: 'spring-boot-app'
 #    metrics_path: '/actuator/prometheus'
 #    scrape_interval: 5s

@@ -42,9 +42,8 @@ services:
     environment:
       - COLLECTOR_OTLP_ENABLED=true
     ports:
-      - "16686:16686" # UI
+      - "16686:16686" # UI§
       - "14250:14250" # gRPC
-      - "4319:4317"
     container_name: jaeger
     networks:
       - monitoring
