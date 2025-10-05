@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: service-a
+  data:
+    mongodb:
+      uri: mongodb://admin:password@localhost:27018/service-a?authSource=admin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      access: read_only
+    metrics:
+      access: unrestricted
+#  otlp:
+#    metrics:
+#      export:
+#        enabled: true
+#        url: http://localhost:4317
+#        protocol: grpc
+#  prometheus:
+#    metrics:
+#      export:
+#        enabled: true
+server:
+  port: 8082
